@@ -34,13 +34,13 @@ const render = function() {
     const btnTodoCompleted = li.querySelector('.todo-complete'),
       btnTodoRemove = li.querySelector('.todo-remove');
 
-    btnTodoCompleted.addEventListener('click', function(){
+    btnTodoCompleted.addEventListener('click', function() {
       item.completed = !item.completed;
       saveTodo();
       render(); 
     });
     
-    btnTodoRemove.addEventListener('click',function(){
+    btnTodoRemove.addEventListener('click',function() {
       todoData.splice(i,1);
       saveTodo();
       render();
