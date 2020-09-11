@@ -7,10 +7,6 @@ const todoControl = document.querySelector('.todo-control'),
 
 const todoData = JSON.parse(localStorage.getItem('savesToDo')) || [];
 
-const saveTodo = function() {
-  localStorage.setItem('savesTodo', JSON.stringify(todoData));
-};
-
 const render = function() {
   todoList.textContent = '';
   todoCompleted.textContent = '';
@@ -26,9 +22,9 @@ const render = function() {
       '</div>';
 
     if(item.completed) {
-      todoCompleted.append(li);
+      todoCompleted.prepend(li);
     } else {
-      todoList.append(li);
+      todoList.prepend(li);
     }
 
     const btnTodoCompleted = li.querySelector('.todo-complete'),
@@ -36,16 +32,19 @@ const render = function() {
 
     btnTodoCompleted.addEventListener('click', function() {
       item.completed = !item.completed;
-      saveTodo();
+      saveToDo();
       render(); 
     });
     
-    btnTodoRemove.addEventListener('click',function() {
+    btnTodoRemove.addEventListener('click',function(event) {
       todoData.splice(i,1);
-      saveTodo();
+      saveToDo();
       render();
     });
   });
+},
+saveToDo = () => {
+  localStorage.setItem('savesToDo', JSON.stringify(todoData));
 };
 render();
 todoControl.addEventListener('submit', function(event) {
@@ -60,7 +59,7 @@ todoControl.addEventListener('submit', function(event) {
   };
 
   todoData.push(newTodo);
-  headerInput.value = '';
-  saveTodo();
+  todoControl.reset();
+  saveToDo();
   render();
 });
