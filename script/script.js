@@ -7,7 +7,7 @@ const todoControl = document.querySelector('.todo-control'),
 
 const todoData = JSON.parse(localStorage.getItem('savesToDo')) || [];
 
-const saveTodo = function(){
+const saveTodo = function() {
   localStorage.setItem('savesTodo', JSON.stringify(todoData));
 };
 
@@ -15,7 +15,7 @@ const render = function() {
   todoList.textContent = '';
   todoCompleted.textContent = '';
 
-  todoData.forEach(function(item, i){
+  todoData.forEach(function(item, i) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
 
@@ -25,7 +25,7 @@ const render = function() {
         '<button class="todo-complete"></button>' +
       '</div>';
 
-    if(item.completed){
+    if(item.completed) {
       todoCompleted.append(li);
     } else {
       todoList.append(li);
@@ -47,6 +47,7 @@ const render = function() {
     });
   });
 };
+render();
 todoControl.addEventListener('submit', function(event) {
   event.preventDefault();
   if(headerInput.value.trim() === '') {
@@ -63,5 +64,3 @@ todoControl.addEventListener('submit', function(event) {
   saveTodo();
   render();
 });
-
-render();
